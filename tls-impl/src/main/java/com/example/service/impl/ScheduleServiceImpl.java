@@ -29,9 +29,13 @@ import java.util.Optional;
 public class ScheduleServiceImpl implements ScheduleService {
 
     private final CheckScheduleRepository checkScheduleRepository;
+
     private final CertificateResultRepository checkCertificateResultRepository;
+
     private final ScheduleMapper scheduleMapper;
+
     private final CertificateResultMapper certificateResultMapper;
+
     private final ScheduleRunner scheduleRunner;
 
     @Override

@@ -4,15 +4,12 @@ import com.example.dto.response.ErrorResponse;
 import com.example.dto.response.ErrorType;
 import com.example.exceptions.AlreadyExistsException;
 import com.example.exceptions.NotFoundCertificateResultException;
-import jakarta.validation.ConstraintViolationException;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.webjars.NotFoundException;
 
 @RestControllerAdvice

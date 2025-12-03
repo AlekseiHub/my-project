@@ -11,6 +11,4 @@ import java.util.List;
 public interface CertificateResultMapper {
 
     List<CertificateResultResponse> toListCertificateResultResponse(List<CertificateCheckResult> certificateCheckResult);
-
-    CertificateCheckResult toCertificateResult(CertificateResultResponse certificateResultResponse);
 }

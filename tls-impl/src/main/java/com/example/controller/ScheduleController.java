@@ -19,5 +19,4 @@ public interface ScheduleController {
     ResponseEntity<CreateScheduleResponse> createSchedule(@Valid @RequestBody CreateScheduleRequest request);
 
     ResponseEntity<DeleteScheduleResponse> deleteSchedule(@Valid @RequestBody UrlRequest request);
-
 }

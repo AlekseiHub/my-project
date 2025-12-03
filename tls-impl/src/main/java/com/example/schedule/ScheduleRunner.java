@@ -21,8 +21,11 @@ import java.util.concurrent.ScheduledFuture;
 public class ScheduleRunner {
 
     private final CheckScheduleRepository checkScheduleRepository;
+
     private final CertificateCheckerService certificateCheckerService;
+
     private final TaskScheduler taskScheduler;
+
     private final Map<Long, ScheduledFuture<?>> scheduledTasks = new ConcurrentHashMap<>();
 
     @PostConstruct
@@ -40,6 +43,7 @@ public class ScheduleRunner {
     }
 
     public void startSchedule(CheckSchedule schedule) {
+
         String cron = schedule.getCronExpression();
 
         try {

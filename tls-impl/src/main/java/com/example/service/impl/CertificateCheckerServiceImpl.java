@@ -1,6 +1,5 @@
 package com.example.service.impl;
 
-import com.example.dto.response.CertificateResultResponse;
 import com.example.mapper.CertificateResultMapper;
 import com.example.model.entity.CertificateCheckResult;
 import com.example.model.entity.CheckSchedule;
@@ -30,13 +29,9 @@ public class CertificateCheckerServiceImpl implements CertificateCheckerService 
     public void checkAndSave(CheckSchedule schedule) {
 
         try {
-            // 1. Проверить сертификат с URL
             CertificateCheckResult response = check(schedule);
 
-            // 2. Сохранить
             certificateResultRepository.save(response);
-
-
 
             log.info("Сертификат по URL '{}' проверен и сохранён", schedule.getUrl());
 
