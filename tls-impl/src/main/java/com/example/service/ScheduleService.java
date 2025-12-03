@@ -1,16 +1,19 @@
 package com.example.service;
 
 import com.example.dto.request.CreateScheduleRequest;
-import com.example.dto.response.CertificateResultDto;
+import com.example.dto.request.UrlRequest;
+import com.example.dto.response.CertificateResultResponse;
 import com.example.dto.response.CreateScheduleResponse;
 import com.example.dto.response.DeleteScheduleResponse;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface ScheduleService {
 
-    public ResponseEntity<CertificateResultDto> getResults(Long id);
+    ResponseEntity<List<CertificateResultResponse>> getResults();
 
-    public ResponseEntity<DeleteScheduleResponse> delete(Long id);
+    ResponseEntity<DeleteScheduleResponse> delete(UrlRequest request);
 
-    public ResponseEntity<CreateScheduleResponse> createSchedule(CreateScheduleRequest request);
+    ResponseEntity<CreateScheduleResponse> createSchedule(CreateScheduleRequest request);
 }

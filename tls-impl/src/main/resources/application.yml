@@ -1,21 +1,27 @@
 spring:
   application:
-    name: tls-service
+    name: ${APPLICATION_NAME:tls-service}
     schema: ${APPLICATION_SCHEMA:tls_service}
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: ${DB_USERNAME:postgres}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/${POSTGRES_DATABASE:soft}?currentSchema=${APPLICATION_SCHEMA:tls_service}
+    username: ${DB_LOGIN:postgres}
     password: ${DB_PASSWORD:postgres}
+
+  liquibase:
+    user: ${DB_LOGIN:postgres}
+    password: ${DB_PASSWORD:postgres}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/${POSTGRES_DATABASE:soft}?currentSchema=${APPLICATION_SCHEMA:tls_service}
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    default-schema: ${spring.application.schema}
+
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: true
   jackson:
     serialization:
       INDENT_OUTPUT: true

@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-certificate-check-result
+      author: Aleksei Drozdov
+      changes:
+        - createSequence:
+            sequenceName: certificate_check_result_seq
+            startValue: 1
+        - createTable:
+            tableName: certificate_check_result
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  defaultValueSequenceNext: certificate_check_result_seq
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: schedule_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_certificate_schedule
+                    references: check_schedule(id)
+              - column:
+                  name: check_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subject
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: issuer
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: not_before
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: not_after
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valid
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: raw_json
+                  type: TEXT

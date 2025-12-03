@@ -2,19 +2,22 @@ package com.example.controller;
 
 
 import com.example.dto.request.CreateScheduleRequest;
-import com.example.dto.response.CertificateResultDto;
+import com.example.dto.request.UrlRequest;
+import com.example.dto.response.CertificateResultResponse;
 import com.example.dto.response.CreateScheduleResponse;
 import com.example.dto.response.DeleteScheduleResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 public interface ScheduleController {
 
-    public ResponseEntity<CertificateResultDto> getResults(@PathVariable Long id);
+    ResponseEntity<List<CertificateResultResponse>> getResults();
 
-    public ResponseEntity<CreateScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request);
+    ResponseEntity<CreateScheduleResponse> createSchedule(@Valid @RequestBody CreateScheduleRequest request);
 
-    public ResponseEntity<DeleteScheduleResponse> deleteSchedule(@PathVariable Long id);
+    ResponseEntity<DeleteScheduleResponse> deleteSchedule(@Valid @RequestBody UrlRequest request);
 
 }

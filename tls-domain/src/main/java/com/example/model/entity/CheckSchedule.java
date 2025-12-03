@@ -17,7 +17,7 @@ public class CheckSchedule {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "url", nullable = false)
@@ -26,9 +26,11 @@ public class CheckSchedule {
     @Column(name = "cron_expression", nullable = false)
     private String cronExpression;
 
+    @Builder.Default
     @Column(name = "active", nullable = false)
-    private Boolean active;
+    private Boolean active = true;
 
+    @Builder.Default
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

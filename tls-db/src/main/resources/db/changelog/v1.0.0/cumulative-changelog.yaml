@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: 2025-12-01-001-create-table-check-schedule.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 2025-12-01-002-create-table-certificate-check-result.yaml
+      relativeToChangelogFile: true
