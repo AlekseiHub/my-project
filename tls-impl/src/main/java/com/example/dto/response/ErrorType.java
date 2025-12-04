@@ -3,6 +3,16 @@ package com.example.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Перечисление типов ошибок, используемых для формирования структурированных ответов клиенту.
+ *
+ * Содержит:
+ *{@link #status} — текстовый статус ошибки (например, BAD_REQUEST, NOT_FOUND)
+ *{@link #code} — числовой код ошибки (обычно соответствует HTTP-коду)
+ *{@link #detail} — подробное описание причины ошибки, которое можно показывать пользователю
+ *
+ * Применяется совместно с {@link ErrorResponse} для унифицированной обработки ошибок в REST API.
+ */
 @AllArgsConstructor
 @Getter
 public enum ErrorType {

@@ -3,16 +3,12 @@ databaseChangeLog:
       id: create-certificate-check-result
       author: Aleksei Drozdov
       changes:
-        - createSequence:
-            sequenceName: certificate_check_result_seq
-            startValue: 1
         - createTable:
             tableName: certificate_check_result
             columns:
               - column:
                   name: id
                   type: BIGINT
-                  defaultValueSequenceNext: certificate_check_result_seq
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -56,3 +52,10 @@ databaseChangeLog:
               - column:
                   name: raw_json
                   type: TEXT
+
+        - createIndex:
+            tableName: certificate_check_result
+            indexName: idx_certificate_schedule_id
+            columns:
+              - column:
+                  name: schedule_id

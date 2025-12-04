@@ -2,9 +2,15 @@ package com.example.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 
+/**
+ * Дто входящего запроса для создания расписания.
+ *
+ * Содержит адрес ресурса и Cron-выражение, определяющее периодичность проверки.
+ */
+@Builder
 public record CreateScheduleRequest(
-
         @NotBlank(message = "URL не должен быть пустым")
         @Pattern(
                 regexp = "^(https://).+",

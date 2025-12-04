@@ -15,6 +15,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 
+/**
+ * Компонент для управления запуском и управлением задач проверки сертификатов по расписанию.
+ *
+ * Использует {@link TaskScheduler} для планирования выполнения задач на основе cron-выражений.
+
+ * Основные функции:
+ *Инициализация всех активных расписаний после старта приложения
+ *Запуск новых задач на основе cron-выражений
+ *Хранение ссылок на {@link ScheduledFuture} для управления запущенными задачами
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -28,12 +38,20 @@ public class ScheduleRunner {
 
     private final Map<Long, ScheduledFuture<?>> scheduledTasks = new ConcurrentHashMap<>();
 
+    /**
+     * Метод инициализации, вызывается после создания бина.
+     *
+     * Загружает все активные расписания из базы данных и запускает их.
+     */
     @PostConstruct
     public void init() {
         log.info("Инициализация планировщика…");
         startAllActiveSchedules();
     }
 
+    /**
+     * Запускает все активные расписания, хранящиеся в базе данных.
+     */
     public void startAllActiveSchedules() {
         List<CheckSchedule> schedules = checkScheduleRepository.findAllByActiveTrue();
 
@@ -42,6 +60,15 @@ public class ScheduleRunner {
         }
     }
 
+    /**
+     * Запускает конкретное расписание.
+     *
+     * Создаёт задачу с cron-выражением {@link CheckSchedule#getCronExpression()}.
+     * Выполнение задачи делегируется {@link CertificateCheckerService#checkAndSave(CheckSchedule)}.
+     * Ошибки при запуске логируются.
+     *
+     * @param schedule сущность расписания для запуска
+     */
     public void startSchedule(CheckSchedule schedule) {
 
         String cron = schedule.getCronExpression();

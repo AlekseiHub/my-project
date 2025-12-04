@@ -7,6 +7,12 @@ import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
+/**
+ * Mapper для преобразования сущностей {@link CertificateCheckResult} в DTO {@link CertificateResultResponse}.
+ *
+ * Используется для подготовки данных о результатах проверки сертификатов
+ * к возвращению клиенту через REST API.
+ */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CertificateResultMapper {
 

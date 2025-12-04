@@ -5,15 +5,39 @@ import com.example.dto.request.UrlRequest;
 import com.example.dto.response.CertificateResultResponse;
 import com.example.dto.response.CreateScheduleResponse;
 import com.example.dto.response.DeleteScheduleResponse;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ * Сервис для управления расписаниями проверки SSL-сертификатов.
+ *
+ * Предоставляет методы для:
+ * lСоздания новых расписаний проверки сертификатов
+ * Удаления существующих расписаний
+ * Получения результатов всех проверок сертификатов
+ */
 public interface ScheduleService {
 
-    ResponseEntity<List<CertificateResultResponse>> getResults();
+    /**
+     * Получает список всех результатов проверок SSL-сертификатов.
+     *
+     * @return список {@link CertificateResultResponse} с данными о проверках
+     */
+    List<CertificateResultResponse> getResults();
 
-    ResponseEntity<DeleteScheduleResponse> delete(UrlRequest request);
+    /**
+     * Удаляет расписание проверки сертификата по указанному URL.
+     *
+     * @param request объект {@link UrlRequest}, содержащий URL для удаления
+     * @return {@link DeleteScheduleResponse} с информацией об успешном удалении
+     */
+    DeleteScheduleResponse delete(UrlRequest request);
 
-    ResponseEntity<CreateScheduleResponse> createSchedule(CreateScheduleRequest request);
+    /**
+     * Создаёт новое расписание проверки сертификата.
+     *
+     * @param request объект {@link CreateScheduleRequest} с данными для создания расписания
+     * @return {@link CreateScheduleResponse} с информацией об успешном добавлении
+     */
+    CreateScheduleResponse createSchedule(CreateScheduleRequest request);
 }

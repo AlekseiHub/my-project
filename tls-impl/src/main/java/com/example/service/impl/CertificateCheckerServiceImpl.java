@@ -17,6 +17,17 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+/**
+ * Сервис для проверки SSL-сертификатов веб-ресурсов и сохранения результатов в базу данных.
+ *
+ * Реализует {@link CertificateCheckerService} и выполняет проверку сертификатов по URL,
+ * полученным из {@link CheckSchedule}, а также сохраняет результаты в {@link CertificateResultRepository}.
+ *
+ * Основные функции:
+ *Подключение к URL по HTTPS и получение сертификата сервера
+ *Определение валидности сертификата на текущий момент
+ *Формирование DTO {@link CertificateCheckResult} и сохранение его в базу данных
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -25,6 +36,12 @@ public class CertificateCheckerServiceImpl implements CertificateCheckerService 
     private final CertificateResultRepository certificateResultRepository;
     public final CertificateResultMapper certificateResultMapper;
 
+    /**
+     * Проверяет сертификат по расписанию и сохраняет результат в базу данных.
+     *
+     * @param schedule объект {@link CheckSchedule}, содержащий URL и параметры проверки
+     * @throws RuntimeException если произошла ошибка при проверке сертификата
+     */
     @Override
     public void checkAndSave(CheckSchedule schedule) {
 
@@ -35,11 +52,24 @@ public class CertificateCheckerServiceImpl implements CertificateCheckerService 
 
             log.info("Сертификат по URL '{}' проверен и сохранён", schedule.getUrl());
 
-        } catch (Exception e) {
-            log.error("Ошибка проверки сертификата {}: {}", schedule.getUrl(), e.getMessage());
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Ошибка проверки сертификата");
         }
     }
 
+    /**
+     * Выполняет проверку SSL-сертификата по URL расписания.
+     *
+     * Подключается к серверу, извлекает X509-сертификат и определяет его:
+     * subject и issuer
+     * даты начала и окончания действия
+     * валидность на текущий момент
+     * формирует JSON-представление сертификата
+     *
+     * @param checkSchedule объект {@link CheckSchedule} с URL для проверки
+     * @return {@link CertificateCheckResult} с результатами проверки
+     * @throws RuntimeException если не удалось подключиться к серверу или получить сертификат
+     */
     @Override
     public CertificateCheckResult check(CheckSchedule checkSchedule) {
         try {
@@ -92,6 +122,13 @@ public class CertificateCheckerServiceImpl implements CertificateCheckerService 
             throw new RuntimeException("Ошибка проверки сертификата: " + e.getMessage(), e);
         }
     }
+
+    /**
+     * Конвертирует {@link Date} в {@link LocalDateTime} с использованием системного часового пояса.
+     *
+     * @param date объект {@link Date} для конвертации
+     * @return объект {@link LocalDateTime}
+     */
     private LocalDateTime toLocalDateTime(Date date) {
         return date.toInstant()
                 .atZone(ZoneId.systemDefault())

@@ -2,8 +2,8 @@ package com.example.handler;
 
 import com.example.dto.response.ErrorResponse;
 import com.example.dto.response.ErrorType;
-import com.example.exceptions.AlreadyExistsException;
-import com.example.exceptions.NotFoundCertificateResultException;
+import com.example.exception.AlreadyExistsException;
+import com.example.exception.NotFoundCertificateResultException;
 import org.apache.logging.log4j.util.InternalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.webjars.NotFoundException;
 
+/**
+ * Глобальный обработчик исключений для REST API.
+ *
+ * Позволяет централизованно перехватывать исключения и формировать
+ * стандартизированные ответы {@link ErrorResponse} для клиента.
+ *
+ * Все методы возвращают {@link ResponseEntity} с корректным HTTP-статусом
+ * и телом ответа, содержащим информацию об ошибке.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
